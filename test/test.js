@@ -1,8 +1,7 @@
-var wows = require('vows');
-var assert = require('assert');
-var DOMParser = require('xmldom').DOMParser;
-var XMLSerializer = require('xmldom').XMLSerializer;
+'use strict';
 
+const DOMParser = require('../dom-parser').DOMParser;
+const XMLSerializer = require('../dom').XMLSerializer;
 
 var doc = new DOMParser().parseFromString('<xml xmlns="http://test.com" id="root">' +
 	'<child1 id="a1" title="1"><child11 id="a2"  title="2"/></child1>' +

@@ -1,15 +1,16 @@
-var wows = require('vows');
-var DOMParser = require('xmldom').DOMParser;
-var XMLSerializer = require('xmldom').XMLSerializer;
+'use strict'
 
-wows.describe('DOM DocumentFragment').addBatch({
+const DOMParser = require('../../dom-parser').DOMParser;
+const expect = require('chai').expect;
+
+describe('DOM DocumentFragment', () => {
 	// see: http://jsfiddle.net/9Wmh2/1/
-	"append empty fragment":function(){
+	it("append empty fragment", () => {
 		var document = new DOMParser().parseFromString('<p id="p"/>');
 		var fragment = document.createDocumentFragment();
 		document.getElementById("p").insertBefore(fragment, null);
 		fragment.appendChild(document.createTextNode("a"));
 		document.getElementById("p").insertBefore(fragment, null);
-		console.assert(document.toString() == '<p id="p">a</p>', document.toString());
-	},
-}).run();
+		expect(document.toString()).to.equal('<p id="p">a</p>');
+	});
+});

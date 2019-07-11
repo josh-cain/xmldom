@@ -1,14 +1,11 @@
-var wows = require('vows'),
-	assert = require('assert');
-var DOMParser = require('xmldom').DOMParser;
+'use strict';
 
+const DOMParser = require('../../dom-parser').DOMParser;
+const expect = require('chai').expect;
 
-wows.describe('errorHandle').addBatch({
-  'unclosedcomment': function() {
+describe('errorHandle', () => {
+  it('unclosedcomment', () => {
     var parser = new DOMParser();
-	assert['throws'](function () {
-		var doc = parser.parseFromString('<!--', 'text/xml');
-		console.log(doc+'')
-	}, 'Unclosed comment');
-  }
-}).run();
+    expect(() => parser.parseFromString('<!--', 'text/xml')).to.Throw('Unclosed comment');
+  });
+});

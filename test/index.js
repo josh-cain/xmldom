@@ -1,13 +1,9 @@
-var XMLSerializer = require('xmldom').XMLSerializer;
-var DOMParser = require('xmldom').DOMParser;
-try{
-	var libxml = require('libxmljs');
-}catch(e){
-	var DomJS = require("dom-js");
-}
+'use strict';
 
-var assert = require('assert');
-
+const DOMParser = require('../dom-parser').DOMParser;
+const XMLSerializer = require('../dom').XMLSerializer;
+const libxml = require('libxmljs');
+const DomJS = require("dom-js");
 
 var oldParser = DOMParser.prototype.parseFromString ;
 function format(s){
