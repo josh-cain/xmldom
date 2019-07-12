@@ -1,24 +1,27 @@
-var wows = require('vows');
-var DOMParser = require('xmldom').DOMParser;
+'use strict'
 
-wows.describe('XML Serializer').addBatch({
-  'text node containing ">"': function() {
+const DOMParser = require('../../dom-parser').DOMParser;
+const expect = require('chai').expect;
+
+describe('XML Serializer', () => {
+  it('text node containing ">"', () => {
     var doc = new DOMParser().parseFromString('<test/>', 'text/xml');
     doc.documentElement.appendChild(doc.createTextNode('hello> there'));
-    console.assert(doc.documentElement.firstChild.toString() == 'hello> there',doc.documentElement.firstChild.toString());
-  },
-  'text node containing "<]]>"': function() {
+    expect(doc.documentElement.firstChild.toString()).to.equal('hello> there');
+  });
+  it('text node containing "<]]>"', () => {
     var doc = new DOMParser().parseFromString('<test/>', 'text/xml');
     doc.documentElement.appendChild(doc.createTextNode('<hello ]]> there'));
-    console.assert(doc.documentElement.firstChild.toString() == '&lt;hello ]]&gt; there',doc.documentElement.firstChild.toString());
-  },
-  'text node containing "]]>"': function() {
+    expect(doc.documentElement.firstChild.toString()).to.equal('&lt;hello ]]&gt; there');
+  })
+  it('text node containing "]]>"', () => {
     var doc = new DOMParser().parseFromString('<test/>', 'text/xml');
     doc.documentElement.appendChild(doc.createTextNode('hello ]]> there'));
-    console.assert(doc.documentElement.firstChild.toString() == 'hello ]]&gt; there',doc.documentElement.firstChild.toString());
-  },
-  '<script> element with no children': function() {
-    var doc = new DOMParser().parseFromString('<html><script></script></html>', 'text/html');
-    console.assert(doc.documentElement.firstChild.toString() == '<script></script>');
-  },
-}).run();
+    expectw(doc.documentElement.firstChild.toString()).to.equal('hello ]]&gt; there');jj
+  });
+  it('<script> element with no children', () => {
+    var doc = new DOMParser({xmlns:{xmlns:'http://www.w3.org/1999/xhtml'}}).parseFromString('<html2><script></script></html2>', 'text/html');
+    //console.log(doc.documentElement.firstChild.toString(true))
+    expect(doc.documentElement.firstChild.toString()).to.equal('<script></script>');
+  });
+});
